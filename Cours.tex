@@ -11,11 +11,48 @@
 \date{MT BA4}
 \maketitle
 
-\section{Introductions}
+\section{Introduction}
 Cours d'électronique II, donné par Mme Lacour.
+
 \section{Polarisation et Jonction PN}
-\subsection{...}
-A completer avec les notes.
+\subsection{Physique du semi-conducteur}
+
+\begin{itemize}
+\item \textbf{Conducteurs :} $\rho < 10^{-5} [\Omega . cm]$ 
+\item \textbf{Diélectriques :} $\rho > 10^{8} [\Omega . cm]$ 
+\item \textbf{Semi-conducteurs :} $10^{-5} < \rho < 10^{8} [\Omega . cm]$  Conduction électrique par $e^-$ et trous.
+ En apportant de l'énergie on fait passer les $e^-$ de la bande de valence (BV) à la bande de conduction (BC).
+
+Densité de charges : $$ n_i = 5,2.10^{-15}T^{\frac{3}{2}} \exp{(-\frac{E_g}{2kT})} \quad [e^-.cm^{-3}] $$
+Dans un semi-conducteur intrinsèque : $$ n = p = n_i \quad \quad \quad np = n_i^2 $$
+
+\textbf{Conductivité électrique} dans un semi-conducteur : $\sigma = \mu_nne + \mu_ppe $
+
+\textbf{Mobilité $\mu$} : $\quad v =\mu E\quad\quad [m.s^{-1}]=[m^2.V^{-1}.s^{-1}].[V.m^{-1}]$
+
+\textbf{Courant :} $I = nqvtw=nq\mu Etw \;$ avec tw = surface et la densité de courant est $ j=\frac{I}{tw}=ne\mu E $
+
+\textbf{Loi d'Ohm :} $ E = \frac{V}{l} \Rightarrow I= ne\mu \frac{tw}{l}.V $ avec la conductance $G=ne\mu \frac{tw}{l}$. 
+
+La résistivité est donnée par $\rho=\frac{1}{ne\mu}$
+
+\subsection{Dopage}
+\subsubsection{Dopage N}
+Inclusion d'impuretés qui donnent des $e^-$ dans la BC.
+$$ n=N_D \Rightarrow p = \frac{n_i^2}{N_D} \quad avec \quad 10^{15} < N_D < 10^{20}\; cm^{-3}$$
+\subsubsection{Dopage P}
+Inclusion d'impuretés qui donnent des trous dans la BC.
+$$  n=N_A \Rightarrow p = \frac{n_i^2}{N_A} $$
+
+\end{itemize}
+
+\subsection{Jonctions PN}
+\includegraphics[scale=0.4]{pn}
+
+\subsection{Zone de dépletion}
+\includegraphics[scale=0.4]{dcharges}
+\includegraphics[scale=0.4]{delec}
+\includegraphics[scale=0.4]{pelec}
 
 \subsection{Diode Zener}
 \includegraphics[scale=0.8]{zener_IV.png} 
@@ -117,9 +154,167 @@ $$ 5< \beta < 80 : transistors\,de\,puissance \quad 100 < \beta < 500 : transist
 
 \subsubsection{Schémas équivalents}
 \includegraphics[scale=0.5]{schema_eq}
-\subsection{Montage inverseur}
+\subsubsection{Montage inverseur}
 $V_X = V_{CC} - R_Ci_C$
+\begin{itemize}
+\item $V_1 \le U_j$ : Le transistor est bloqué et $V_X = V_{CC}$
+\item $V_1 > U_j$ : Le transistor est passant et $V_X = V_{CC} - \beta R_Ci_B$
+\item Si le transistor est saturé : $V_X = V_{CE,sat} \approx 0V$
+\end{itemize}
 
 \includegraphics[scale=0.5]{inverseur}
+
+\subsubsection{Transconductance}
+
+\includegraphics[scale=0.5]{transconductance.png}
+
+$I_C = I_S(\exp{(\frac{V_{BE}}{U_T}-1)})$
+
+$g_m = \frac{dI_C}{dV_{BE}}$
+
+\subsection{Modèle petits signaux ($v \le 10 mV$)}
+\subsubsection{Notations}
+Composantes statiques et dynamiques :
+\begin{itemize}
+\item $ v_{BE}(t) = V_{BE,0} + v_{BE}(t) $
+\item $ i_B(t) = I_{B,0} + i_B(t)$
+\item $ v_{CE}(t) =  V_{CE,0} + v_{CE}(t) $
+\item $ i_C(t) = I_{C,0} + i_C(t) $ 
+\end{itemize}
+
+\subsubsection{Transconductance}
+$ g_m = \frac{i_c}{v_{BE}} = \frac{\partial I_C}{\partial V_{BE}}\mid_{V_{BE,0}\;,\;I_{C,0}} \Rightarrow g_m = \frac{I_{C,0}}{U_T}$
+
+\subsubsection{Résistance d'entrée ($r_\pi$)}
+$i_B = g_{be}v_{BE} \Rightarrow g_{be} = \frac{g_m}{\beta} = \frac{I_{C,0}}{\beta U_T} \quad \textbf{NB:} \; g_m >> g_{be}$
+
+\subsubsection{Tension d'Early ($V_A$)}
+\includegraphics[scale=0.3]{early}
+
+\subsubsection{Résistance de sortie ($r_0$)}
+$i_c = g_{ce}v_{CE} \Rightarrow  \frac{i_c}{v_{CE}} = \frac{\partial I_C}{\partial V_{CE}}\mid_{V_{BE,0}\;,\;I_{C,0}} \Rightarrow g_{ce} = \frac{I_{C,0}}{V_A} \quad \textbf{NB:} \; g_m >> g_{be} >> g_{ce}$
+\subsubsection{A retenir}
+\begin{itemize}
+\item \textbf{NPN}
+
+\includegraphics[scale=0.5]{aretenir_npn}
+
+\item \textbf{PNP}
+
+\includegraphics[scale=0.5]{aretenir_pnp}
+\end{itemize}
+
+\section{Modèle petits signaux}
+\subsection{Quadripôle}
+Le transistor peut-être vu comme un quadripôle si l'un des terminaux est mis en commun entre l'entrée et la sortie.
+
+\includegraphics[scale=0.6]{quad}
+\subsubsection{Résistance d'entrée}
+$ R_{in} = \frac{v_1}{i_1}\mid_{R_L} $
+\subsubsection{Impédance de sortie}
+$ R_{out} = \frac{v_2}{i_2}\mid_{v_s=0} $
+\subsubsection{Fonction de transfert}
+Gains en tension :
+
+\begin{itemize}
+\item \textbf{Gain en tension à vide :} $A_{v,0} = \frac{v_2}{v_1}\mid_{R_L}\rightarrow\infty$
+\item \textbf{Gain en tension avec une charge $R_L$ :} $ A_v =  \frac{v_2}{v_1}\mid_{R_L} = A_{v,0}\frac{R_L}{R_L + R_{out}}$
+\end{itemize}
+Gains en courant :
+\begin{itemize}
+\item \textbf{Gain en courant en court-circuit :} $A_{i,0} = \frac{i_2}{i_1}\mid_{R_L=0}$
+\item \textbf{Gain en courant avec une charge $R_L$ :} $ A_i =  \frac{i_2}{i_1}\mid_{R_L} = A_{i,0}\frac{R_out}{R_L + R_{out}}$
+\end{itemize}
+Gains transconductance :
+\begin{itemize}
+\item \textbf{$G_{m,0}$ vide :} $G_{m,0} = \frac{i_2}{v_1}\mid_{R_L=0}$
+\item \textbf{$G_{m}$ avec une charge $R_L$ :} $ G_m =  \frac{i_2}{i_1}\mid_{R_L} = G_{m,0}\frac{R_{out}}{R_L + R_{out}}$
+\end{itemize}
+Gains transrésistance :
+\begin{itemize}
+\item \textbf{$R_{m,0}$ à vide :} $R_{m,0} = \frac{i_2}{v_1}\mid_{R_L=0}$
+\item \textbf{$R_{m}$ avec une charge  $R_L$:} $ R_m =  \frac{i_2}{i_1}\mid_{R_L} = R_{m,0}\frac{R_L}{R_L + R_{out}}$
+\end{itemize}
+
+\subsubsection{A retenir}
+ \begin{itemize}
+\item \textbf{A vide :} $A_{v,0} = - G_{m,0}R_{out}$
+\item \textbf{Avec une charge  $R_L$:} $A_{v} = - G_{m}R_{L}$
+\end{itemize}
+
+\subsection{Applications au transistor bipolaire}
+\subsubsection{Emetteur commun}
+\includegraphics[scale=0.5]{emetteur}
+\subsubsection{Base commune}
+\includegraphics[scale=0.5]{base}
+\subsubsection{Collecteur commun}
+\includegraphics[scale=0.5]{coll}
+\subsubsection{Comparaison}
+\includegraphics[scale=0.5]{comp}
+
+\section{Polarisation}
+\subsection{Rappel Condensateurs}
+$ Z(jw) = \frac{1}{j\omega C} = \frac{1}{2\pi f C} $
+Alors :
+\begin{itemize}
+\item \textbf{$f\rightarrow 0$  (i.e DC) :} condensateur $\sim$ circuit ouvert.
+\item \textbf{$f\rightarrow \infty$ (i.e petits signaux) :} condensateur $\sim$ court-circuit.
+\end{itemize}
+
+\subsubsection{Condensateurs de couplage}
+\includegraphics[scale=0.5]{couplage}
+\subsubsection{Condensateurs de détournement}
+\includegraphics[scale=0.5]{det}
+
+\subsection{Objectif}
+Fixer le point de fonctionnement P (aussi appelé \textbf{point de Polarisation}) du transistor de façon indépendante de la dispersion caractéristique des transistors, en assurant sa stabilité, notamment vis-à-vis de la température, et en limitant le nombre de sources d'alimentation. C'est autour de ce point que prendront place les variations à amplifier.
+
+\subsubsection{Variations et imperfections}
+\begin{itemize}
+\item \textbf{Variation de température :}
+
+\begin{itemize}
+\item $I_C = cst \Rightarrow V_{BE}$ varie de $ -2mV/K$ 
+\item  $V_{BE} = cst \Rightarrow I_{C}$ augmente de $ 8\%/K$ 
+\item $\beta$ augmente de $ 0.8-1.5\%/K$  
+ 
+\end{itemize}
+
+
+\item \textbf{Dispersion des paramètres du transistor (tolérances) :}
+
+\begin{itemize}
+\item \textbf{$I_S$ :} $\pm 50\%$
+\item \textbf{$\beta$ :} $\pm 100\%$
+\end{itemize}
+
+\end{itemize}
+
+\subsubsection{Polarisation par base}
+\includegraphics[scale=0.5]{polbase}
+\subsubsection{Polarisation par l'émetteur}
+\includegraphics[scale=0.5]{polem}
+\subsubsection{Polarisation par contrôle du courant d'émetteur}
+\includegraphics[scale=0.3]{polcourem}
+\includegraphics[scale=0.3]{polcourem2}
+
+\subsubsection{Polarisation par contre-réaction collecteur-base}
+\includegraphics[scale=0.5]{polcolbase}
+
+\section{Sources de courant}
+\subsection{Montage de Base}
+\includegraphics[scale=0.7]{courant}
+
+En mode normal, $I_C$ est quasi-indépendant de $V_{CE}$. On notera aussi que $R_{source}$ est très élevée.
+On a : $$ I_C = \frac{V_{TH} - V_{BE}}{R_E + \frac{R_{TH}}{\beta}} = I_{source}$$
+$$ V_{CE} > 0 \Rightarrow R_L < \frac{V_{CC}}{I_L} - V_E $$
+$$ R_{out} = \frac{1}{g_{ce}}(1+\frac{\beta R_E}{R_E+ R_{TH}+ \frac{1}{g_{BE}}})+(R_{TH}+\frac{1}{g_{be}})//R_E$$
+\textbf{NB :} Si $R_E = 0 \Rightarrow R_{out} = \frac{1}{g_{ce}}$
+
+\subsection{Miroir de courant}
+
+
+
+
 
 \end{document}
