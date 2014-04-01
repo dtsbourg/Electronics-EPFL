@@ -50,9 +50,26 @@ $$  n=N_A \Rightarrow p = \frac{n_i^2}{N_A} $$
 \includegraphics[scale=0.4]{pn}
 
 \subsection{Zone de dépletion}
-\includegraphics[scale=0.4]{dcharges}
-\includegraphics[scale=0.4]{delec}
+\includegraphics[scale=0.35]{dcharges}
+\includegraphics[scale=0.35]{delec}
 \includegraphics[scale=0.4]{pelec}
+$ V_B = \frac{kT}{q}\ln{(\frac{N_AN_D}{n_i^2})}$
+
+\subsection{Capacité de déplétion}
+\includegraphics[scale=0.3]{capa}
+
+\subsection{Caractéristique $I(V)$}
+$ I_D = I_S \exp{(\frac{V_D}{V_T}-1)} $
+
+\includegraphics[scale=0.3]{car}
+
+\subsection{Courant de diode}
+\subsubsection{$V_D < 0$}
+$$ I_D \sim - I_S = A\frac{kT}{q}(\mu_p\frac{n_i^2}{N_DL_p}+\mu_n\frac{n_i^2}{N_AL_n}) $$
+
+\subsubsection{$V_D > 0$}
+
+$$ ideal : \; I_D = I_S(\exp {\frac{qV_D}{kT}} -1) \quad reel : \;  I_D = I_S(\exp {\frac{qV_D}{nkT}} -1) $$
 
 \subsection{Diode Zener}
 \includegraphics[scale=0.8]{zener_IV.png} 
