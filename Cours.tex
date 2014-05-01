@@ -329,9 +329,135 @@ $$ R_{out} = \frac{1}{g_{ce}}(1+\frac{\beta R_E}{R_E+ R_{TH}+ \frac{1}{g_{BE}}})
 \textbf{NB :} Si $R_E = 0 \Rightarrow R_{out} = \frac{1}{g_{ce}}$
 
 \subsection{Miroir de courant}
+Dispositif qui réplique le courant d'entrée en sortie. Courant constant et indépendant des paramètres du circuit et des 
+tensions d’alimentation.
 
+\subsubsection{Architecture de base}
+Deux transistors identiques ($T_1$ et $T_2$) soit $\beta_1$ = $\beta_2$. $T_1$ est monté en charge active donc $V_{BE_1}$ = $V_{BE_2}$ = $U_j \approx  0,7 V$. Le gain en courant est alors : $$I_{ref} = I_2 (1 + \frac{2}{\beta}) \approx  I_{2}  \; pour \; \beta >> 1$$.
 
+Impédance de sortie : $$ R_{out} = \frac{v_2}{i_2} = \frac{1}{g_{ce,2}} $$
 
+\subsubsection{Miroir à sorties multiples}
+$$ I_{ref} = \frac{V_{CC} + V_E - 2V_{BE_0} }{R} $$
+
+\subsubsection{Miroir avec compensation des courants de base}
+$$ I_{ref} = I_C(1+  \frac{2}{\beta_{1,2} (1+\beta_3)}) $$
+
+\subsubsection{Miroir Cascode}
+\includegraphics[scale=0.7]{miroircascode}
+
+$$ I_{C4} = I_C-I_B = I_{ref}(\frac{1}{1+\frac{4}{\beta}}) $$
+$$ R_{out} = \frac{\beta_4}{g_{ce_4}} = \beta_4 R_{out, miroir simple}$$
+NB : 
+$ V_{in, min} = V_{BE1} + V_{BE3} = 2V_{BE}  $
+
+$ V_{in,max} = V_{BE1} + V_{CE4,sat} $
+
+\subsubsection{Source de courant de Wildar}
+\includegraphics[scale=0.7]{courantwildar}
+
+La résistance $R_2$ donne la flexibilité d’ajuster le gain $\frac{I_{C_2}}{I_{ref}}$ et produire des sources de 
+courant peu élevé.
+
+$$ V_T \ln{(\frac{I_{ref}}{I_{C_2}})} = \frac{\beta}{1+\beta} R_2 I_{C_2} \approx  R_2 I_{C_2}$$
+
+\subsubsection{Source de courant de Wilson}
+\includegraphics[scale=0.7]{courantwilson}
+
+Trois transistors et une boucle de contre-réaction donnent une impédance de sortie très élevée et un courant de sortie exactement égal a $I_{ref}$.
+
+\section{Montages amplificateurs}
+\subsection{Types d'amplificateurs}
+\subsubsection{Amplis de tension}
+Fonction: amplifier une tension
+
+Caractéristiques: $R_{in}$ moyenne, $R_{out}$ élevée (avec le gain), $A_v$ élevé
+
+\subsubsection{Amplis suiveurs = étage de sortie}
+Gain de tension unitaire. Caractéristiques : $R_{in}$ élevée, $R_{out}$ faible
+\subsubsection{Amplis différentiels}
+Amplification d'une différence entre deux tensions d'entrée. Sortie : courant ou tension.
+
+\subsection{L'amplificateur différentiel}
+\includegraphics[scale=0.7]{amplidif}
+
+\subsubsection{Fonction de transfer grands signaux}
+\includegraphics[scale=0.8]{transfertgds}
+
+\subsubsection{Gain différentiel petits signaux}
+Gain en tension : $$ A_v = \frac{v_2}{v_1} = - g_mR_C $$
+Résistance d'entrée differentielle : $$ R_{in,diff} = \frac{v_1}{i_1} = - \frac{2}{g_{be}}$$
+
+\subsection{Montage de Darlington}
+\subsubsection{Montage}
+\includegraphics[scale=0.7]{darlington}
+\subsubsection{Montages équivalents}
+\includegraphics[scale=0.7]{dareq}
+
+\subsection{Etage de sortie : émetteur-suiveur}
+\includegraphics[scale=0.7]{eds_emsuiv}
+\subsection{Etage de sortie : Push-pull}
+\includegraphics[scale=0.7]{eds_pp}
+
+\section{Réponse fréquentielle des montages amplificateurs}
+\subsection{Fréquence de coupure}
+$f_c$ est définie lorsque le gain en tension est réduit de 3dB par rapport à sa valeur dans la bande passante :
+$$ 20 log_{10}(A_v(f_c)) = 20log_{10}(A_{v0}) - 3 $$
+Le gain en tension $A_v(f)$ est défini par :
+$$ A_v(f) = \mid \frac{V_2(j\omega)}{V_1(j\omega)} \mid_{\omega = 2\pi f}  $$
+NB: Un réduciton de 3dB correspond à une diminution du gain d'un facteur $\sqrt{2}$
+
+\subsection{Effet des capacités}
+
+\begin{itemize}
+\item{Capacités de couplage :} $C_1$ et $C_2$. Elles offrent un "chemin au petit signal à l'entrée et sortie du montage.
+\item{Capacité de découplage:} $C_E$ permet au petit signal d'éviter la résistance $R_E$ afin d'élever le gain en tension.
+\item{Comportement en bande passante:} Comme des courts-circuits
+\item{Comportement lorsque la fréquence diminue :} Les capacités fixent la limite inférieure de la bande passante. Elles jouent donc un rôle dans la bande passante.
+\end{itemize}
+
+\subsection{Limitation en basse fréquence:}
+\subsubsection{Circuit RC de type passe-haut}
+$$ A_v(j\omega) = \frac{R_1}{R_1 + \frac{1}{jC_1\omega}} = \frac{j\frac{\omega}{\omega_L}}{1+j\frac{\omega}{\omega_L}} \; avec \; \omega_L = \frac{1}{R_1C_1} $$
+Module du gain : $$ \mid A_v(j\omega) \mid = \frac{1}{\sqrt{1+\frac{\omega^2}{\omega_L^2}}}  $$
+
+\subsubsection{Associé à un ampli de gain $A_0$ dans la bande passante}
+
+$$ A_L(j\omega) = A_0  \frac{j\frac{\omega}{\omega_L}}{1+j\frac{\omega}{\omega_L}} =  A_0 \underline{H_L}(j\omega)$$
+
+\subsection{Limitation en Haute Fréquence}
+\subsubsection{Circuit RC de type passe-bas}
+$$ A_v(j\omega) = \frac{1}{1+j\frac{\omega}{\omega_H}} \; avec \; \omega_H = \frac{1}{R_2C_2} $$
+Module du gain : $$ \mid A_v(j\omega) \mid = \frac{1}{\sqrt{1+\frac{\omega^2}{\omega_H^2}}}  $$
+
+\subsubsection{Associé à un ampli de gain $A_0$ dans la bande passante}
+
+$$ A_H(j\omega) = A_0  \frac{j\frac{\omega}{\omega_H}}{1+j\frac{\omega}{\omega_H}} =  A_0 \underline{H_H}(j\omega) $$
+
+\subsection{Gain en tension dans la bande passante}
+Les capacités sont remplacées par des courts-circuits :
+
+\includegraphics[scale=0.6]{gainvbdp}
+
+\subsection{Synthèse basse fréquence}
+\includegraphics[scale=0.6]{synthbf}
+
+\subsection{Limites HF}
+\begin{itemize}
+\item{Eléments parasites internes au transistor bipolaire :}
+	\begin{itemize}
+	\item{Capacités parasites associées aux jonctions B-E et B-C (faibles $\approx$pF). Dans la bande passante, ce sont des circuits ouverts. Quand la fréquence augmente, ils se comportent comme des court-circuits. Elles induisent une réduction du gain en tension en HF. Fréquence de coupure associée à $C_{be}$ (symétrique pour $C_{bc}$) : $f_{C_{be}} = \frac{1}{2\pi RC_{be}}$   }
+	\item{Résistance série dans la connexion de base ($ R_{bb'} \approx 100\Omega $)}
+	\end{itemize}
+\item{Capacités parasites des fils et connexions ($ \approx pF $)}
+\item{Capacité équivalente d'une sonde d'oscilloscope}
+\end{itemize}
+
+\subsection{Synthèse HF}
+\includegraphics[scale=0.5]{synthhf}
+
+\subsection{Théorème de Miller}
+\includegraphics[scale=0.4]{miller}
 
 
 \end{document}
